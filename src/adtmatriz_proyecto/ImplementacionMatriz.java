@@ -5,18 +5,18 @@
  */
 package adtmatriz_proyecto;
 
-import java.lang.Math;
+import edu.princeton.cs.algs4.Stopwatch;
 
 public class ImplementacionMatriz implements Matriz{
     
     private int filas;
     private int columnas; 
-    private int[][] matriz;
+    private double[][] matriz;
     
     public ImplementacionMatriz(int filas, int columnas){
         this.filas = filas;
         this.columnas = columnas;
-        matriz = new int[filas][columnas];
+        matriz = new double[filas][columnas];
         llenar_matriz();
     }
     
@@ -29,6 +29,7 @@ public class ImplementacionMatriz implements Matriz{
         }
     }
     
+    @Override
     public boolean equals(Object matriz){
         if(!(matriz instanceof Matriz))
             return false;
@@ -44,6 +45,7 @@ public class ImplementacionMatriz implements Matriz{
         return true;
     }
     
+    @Override
     public String toString(){
         String retorno = "";
         for (byte b = 0; b < filas; b++) {
@@ -135,12 +137,14 @@ public class ImplementacionMatriz implements Matriz{
     }
     
     @Override
-    public void setMatriz(int[][] matriz) {
+    public void setMatriz(double[][] matriz) {
+        filas = matriz.length;
+        columnas = matriz[0].length;
         this.matriz = matriz;
     }
 
     @Override
-    public int[][] getMatriz() {
+    public double[][] getMatriz() {
         return matriz;
     }
     
@@ -148,18 +152,81 @@ public class ImplementacionMatriz implements Matriz{
         try {
             
             Matriz m = new ImplementacionMatriz(3,3);
-            System.out.println(m.hashIDs());
+            System.out.println(m.hashIDs()+"\n");
             Matriz n = new ImplementacionMatriz(3,3);
-            System.out.println(m);
-            System.out.println(n);
-//            System.out.println(m.producto(n));
-//            System.out.println((m.suma(n)).toString());
-//            System.out.println(m.Potencia(0).toString());
-            assert(m.Potencia(2)==m.Producto(n));
+            boolean apoyo;
+// equals - - - equals - - - equals - - - equals - - - equals - - - equals - - - equals - - - equals - - - equals - - - equals - - - equals - - - equals - - - 
+            
+            //CAMBIO POR VARIABLES IGUALES
+            double [][] matriz1 = {{1,1,1},{2,2,2},{3,3,3}};
+            double [][] matriz2 = {{1,1,1},{2,2,2},{3,3,3}};
+            
+            //asignar
+            m.setMatriz(matriz1);
+            n.setMatriz(matriz2);
+            
+            //debe dar true
+            apoyo = m.equals(n);
+            assert apoyo == true;
+            
+            //CAMBIO DE N POR DIFERENTE
+            double [][] matriz3 = {{1,1,1},{2,2,2},{9,9,9}};
+            n.setMatriz(matriz3);
+            
+            //debe dar false
+            apoyo = m.equals(n);
+            assert (apoyo == false);
+            
+//producto y potencia - - - producto y potencia - - - producto y potencia - - - producto y potencia - - - producto y potencia - - - producto y potencia - - - 
+            
+            //CAMBIO DE M Y N PARA OPERACIONES DE PRODUCTO Y POTENCIA
+            double [][] matriz4 = {{1,1,1},{2,2,2},{3,3,3}};
+            double [][] matriz5 = {{11,4,2},{3,8,14},{28,4,12}};
+            
+            m.setMatriz(matriz4);
+            n.setMatriz(matriz5);
+            
+            Matriz mApoyo = new ImplementacionMatriz(3,3);
+            
+            mApoyo = n.Producto(n);
+            assert (mApoyo.equals(n.Potencia(2)) == true);
+            
+// SUMA - - - SUMA - - - SUMA - - - SUMA - - - SUMA - - - SUMA - - - SUMA - - - SUMA - - - SUMA - - - SUMA - - - SUMA - - - SUMA - - - SUMA - - - SUMA - - - 
+            
+            m.setMatriz(matriz1);
+            n.setMatriz(matriz2);
+            
+            mApoyo =  m.Suma(n);
+            double [][] iApoyo = mApoyo.getMatriz();
+            assert iApoyo[2][2] == 4;
+            
+            
+// toString - - - toString - - - toString - - - toString - - - toString - - - toString - - - toString - - - toString - - - toString - - - toString - - - toString - - - 
+            
+            double [][] matriz6 = {{11,4,2}};
+            m.setMatriz(matriz6);
+            assert (m.toString().equals("11,4,2"));
+            
+            //EVALUACION EXPERIMENTAL
+            Matriz Mex = new ImplementacionMatriz(20,20);
+            double [][] app = {{11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},{11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},
+            {11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},{11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},{11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},
+            {11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},{11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},{11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},
+            {11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},{11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},{11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},
+            {11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},{11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},{11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},
+            {11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},{11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},{11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},
+            {11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},{11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6},{11,4,2,5,2,1,2,4,5,6,7,7,7,5,4,2,7,8,4,6}};
+            Mex.setMatriz(app);
+            Stopwatch timer = new Stopwatch();
+            int N = 100;
+            Mex.Potencia(N);
+            System.out.println(timer.elapsedTime());
+            
         }
         catch (Exception Error) {
             System.out.println("Se presento un error: \n" + Error);
         }
+        
     }
     
 }

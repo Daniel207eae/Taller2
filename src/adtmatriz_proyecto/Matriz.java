@@ -7,6 +7,10 @@ public interface Matriz{
     ImplementacionMatriz Producto(Matriz matriz) throws Exception;
     
     ImplementacionMatriz Potencia(double k) throws Exception;
+    
+    String toString();
+    
+    boolean equals(Object matriz);
 
     int hashIDs();
     
@@ -14,8 +18,8 @@ public interface Matriz{
 
     int getColumnas();
     
-    public void setMatriz(int[][] matriz);
+    public void setMatriz(double[][] matriz);
     
-    public int[][] getMatriz();
+    public double[][] getMatriz();
     
 }
